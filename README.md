@@ -8,7 +8,7 @@
                      #M = mal Começado 
                      #J = Preciso de ajuda neste (um bug ou não saber fazer)
                      
-#da para criar varias branchs, vamos ter 3:
+# da para criar varias branchs, vamos ter 3:
               #A master(coisas já finalizadas e que estão funcionando)
               #Gameplay(coisas que estão em progresso relacionadas ao gameplay)
               #Layout (Coisas em progressos relacionadas a ao menu do jogo, placar de pontos,...)
