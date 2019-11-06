@@ -1,5 +1,5 @@
 # vamos definir um padrão para os nomes de arquivos 
-# estava pensando em algo tipo : <estagio>-<nome>
+# estava pensando em algo tipo : (estagio)-(nome)
 # exemplo: F-PlacarRecordes 
 # a primeira letra diz qual o estágio que o código está, seguido pelo nome.
 # acho que pode ser: 
