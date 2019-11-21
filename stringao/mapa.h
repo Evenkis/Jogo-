@@ -27,7 +27,6 @@ void gotoxy(int x, int y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-
 // Funcao que le o mapa e detecta a nave e os inimigos
 posicao_t le_mapa(char mapa[][COLUNAS],posicao_t inimigos[], int *ini) {
     char nome_arq[TAM];
@@ -77,33 +76,38 @@ posicao_t le_mapa(char mapa[][COLUNAS],posicao_t inimigos[], int *ini) {
 
 //Imprime a tela (stringao)
 void imprime_tela(char mapa[][COLUNAS],int lim) {
-    int i, j;
+    int i, j, k;
     char tela[TELA_MAX] = "";   // Cria o stringao vazio
 
-    gotoxy(0,0);    // Posiciona o cursor no inicio
-
     // Navega pelo mapa (ja inclui velocidade e limite e sla mais o que)
-    for(i = 0; i<LINHAS; i++) {
-        for(j=lim; j < (COLUNAS_TELA+lim); j++) {
+    for(i = 0; i < LINHAS; i++) {
+        for(j = lim; j < (COLUNAS_TELA + lim); j++) {
+
+            k = j % COLUNAS;
+            
             // Le 1 char do mapa e concatena no stringao
-            strncat(tela, &mapa[i][j], 1);
+            strncat(tela, &mapa[i][k], 1);
         }
         //Adiciona o \n no final de cada linha
         strcat(tela, "\n");
     }
-    //Final do stringao eh um \0
+    // Adiciona o \0 ao final do stringao
     strcat(tela, "\0");
 
-    //Finalmente printa o stringao na tela
+    // Posiciona o cursor no inicio
+    gotoxy(0,0);
+
+    // Finalmente printa o stringao na tela
     printf("%s", tela);
 
-
-    //Dorme um pouquinho :D
+    // Dorme um pouquinho :D
     Sleep(100);
 }
 
 
-void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int y_nave,int x_nave) {
+/// ---- INOP ----
+// Funcao que move os inimigos
+void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int y_nave,int x_nave) {/*
     int i = 0;
     int n_aleatorio;
 
@@ -155,5 +159,6 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
             (mapa[inimigos[i].linhaY][inimigos[i].colunaX]) = 'X';
         }
     }
+    */
 }
-
+/// ---- INOP ----

@@ -10,8 +10,7 @@
 
 #define INIMIGO_MAX 15
 
-int main()
-{
+int main() {
     posica_t pos;
     posicao_t posi;
     int limite = 0;
@@ -24,15 +23,17 @@ int main()
     char mapa[LINHAS][COLUNAS];
     char tecla;
     
+    // Limpa a tela
+    system("cls");
 
-    posicao_t inimigos[INIMIGO_MAX]; /// inimigos ficam na posicao
+    posicao_t inimigos[INIMIGO_MAX];    /// inimigos ficam na posicao
 
-    posi = le_mapa(mapa,inimigos, &n_inimigos); /// passo o mapa para ler, um vetor com tipo struct para botar a posi��o dos inimiog
-    pos.colunaX = posi.colunaX;                 /// e um ponteiro para a funcao me deizer quantos inimigos tem
+    posi = le_mapa(mapa, inimigos, &n_inimigos);    /// Passa a variavel do mapa, um vetor com tipo struct para botar a posicao dos inimigos
+    pos.colunaX = posi.colunaX;                     /// e um ponteiro para a funcao me deizer quantos inimigos tem
     pos.linhaY = posi.linhaY;
 
-    do {
-        gotoxy(0,0); ///so para tirar um bugzinho esse gotoxy
+    do{
+        gotoxy(0,0); /// so para tirar um bugzinho esse gotoxy
 
         // Leitura do teclado
         if(kbhit()) {
@@ -51,16 +52,17 @@ int main()
         detecta_colisao(mapa, pos, vel, &morreu);   /// passa o mapa, a struct com onde ele esta, a velocidade tem q ser usada para ver se
                                                     /// na proxima vai bater e um ponteiro para morreu
         
-        mapa[pos.linhaY-1][pos.colunaX] = '@';      /// faz a nave ficar grande
-        for(i=0; i<4; i++) {
-            mapa[pos.linhaY][pos.colunaX+i] = '@';
+        mapa[pos.linhaY -1][pos.colunaX] = '@';      /// faz a nave ficar grande
+        for(i = 0; i < 4; i++) {
+            mapa[pos.linhaY][pos.colunaX +i] = '@';
         }
-        limpa_rastro(tecla, pos, vel, mapa);    /// so para ficar o rastro, bem simples
+        limpa_rastro(tecla, pos, vel, mapa);
 
+        // Imprime a tela
         imprime_tela(mapa, limite);
 
     } while(!morreu);
     
-    printf("MORREU MORREU");                      ///dps disso tudo acho q podemos a trabalhar com tiros e inimigos
+    printf("MORREU MORREU");
     return 0;
 }
