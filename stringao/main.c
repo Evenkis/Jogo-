@@ -22,7 +22,7 @@ int main()
     int y_nave;
     int x_nave;
     char mapa[LINHAS][COLUNAS];
-    char c;
+    char tecla;
     
 
     posicao_t inimigos[INIMIGO_MAX]; /// inimigos ficam na posicao
@@ -31,14 +31,13 @@ int main()
     pos.colunaX = posi.colunaX;                 /// e um ponteiro para a funcao me deizer quantos inimigos tem
     pos.linhaY = posi.linhaY;
 
-    do
-    {
+    do {
         gotoxy(0,0); ///so para tirar um bugzinho esse gotoxy
 
-        if(kbhit())
-        {
-            c = getch();
-            le_movimento(c, &(pos), &vel);
+        // Leitura do teclado
+        if(kbhit()) {
+            tecla = getch();
+            le_movimento(tecla, &(pos), &vel);
         }
 
         pos.colunaX += vel;
@@ -47,27 +46,20 @@ int main()
         x_nave = pos.colunaX;
         y_nave = pos.linhaY;
 
-        move_inimigos(mapa,inimigos,n_inimigos,y_nave,x_nave);
+        move_inimigos(mapa, inimigos, n_inimigos, y_nave, x_nave);
 
         detecta_colisao(mapa, pos, vel, &morreu);   /// passa o mapa, a struct com onde ele esta, a velocidade tem q ser usada para ver se
                                                     /// na proxima vai bater e um ponteiro para morreu
         
         mapa[pos.linhaY-1][pos.colunaX] = '@';      /// faz a nave ficar grande
-
-        for(i=0; i<4; i++)
-        {
+        for(i=0; i<4; i++) {
             mapa[pos.linhaY][pos.colunaX+i] = '@';
         }
-        limpa_rastro(c, pos, vel, mapa);    /// so para ficar o rastro, bem simples
-                                            /// proximos passos(nao necessariamente nessa ordem):
+        limpa_rastro(tecla, pos, vel, mapa);    /// so para ficar o rastro, bem simples
 
-        imprime_tela(mapa,limite);
+        imprime_tela(mapa, limite);
 
-        gotoxy(0,0);
-
-                                                /// Fazer o mapa recomecar se chegar no final
-    }
-    while(!morreu);
+    } while(!morreu);
     
     printf("MORREU MORREU");                      ///dps disso tudo acho q podemos a trabalhar com tiros e inimigos
     return 0;
