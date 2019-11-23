@@ -74,7 +74,7 @@ void selecao(int* psel) {
             printMenu(*psel);
         }
 
-        Sleep(100);
+        Sleep(10);
     }
 
     return;
