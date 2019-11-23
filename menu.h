@@ -1,9 +1,11 @@
-//PROTOTIPO MENU
+#ifndef _DEFINES_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
 #include <windows.h>
+#include "mapa.h"
 
 #define VERSION "0.0.1\0"
 #define TAM 50
@@ -14,17 +16,11 @@
 #define CONTINUE_TEXT "Continuar   \0"
 #define EXIT_TEXT "Sair   \0"
 
-// Funcao gotoxy (mover cursor)
-void gotoxy(int x, int y) {
-    COORD coord = {0, 0};
-    coord.X = x;
-    coord.Y = y; // X and Y coordinates
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
+#endif
 
 // Printa menu
 void printMenu(int option) {
-    gotoxy(30, 14);
+    gotoxy(20, 14);
     char menuText[TAM] = "-> ";
     if(option == 0){
         strcat(menuText, NEW_GAME_TEXT);
@@ -33,7 +29,7 @@ void printMenu(int option) {
     }
     printf(menuText);
 
-    gotoxy(30, 17);
+    gotoxy(20, 17);
     strcpy(menuText, "-> ");
     if(option == 1){
         strcat(menuText, CONTINUE_TEXT);
@@ -42,7 +38,7 @@ void printMenu(int option) {
     }
     printf(menuText);
 
-    gotoxy(30, 20);
+    gotoxy(20, 20);
     strcpy(menuText, "-> ");
     if(option == 2){
         strcat(menuText, EXIT_TEXT);
@@ -51,9 +47,6 @@ void printMenu(int option) {
     }
     printf(menuText);
 
-    gotoxy(COL_TELA, LIN);
-    printf("F");
-
     return;
 }
 
@@ -61,46 +54,47 @@ void printMenu(int option) {
 // Selecao de opcoes
 void selecao(int* psel) {
     int flag;
-    char c;
+    char tecla;
 
     // Deteccao teclas
-    if(kbhit()){
-        c = getch();
-        flag = 0;
-    }
-    
-    if(c == 'w' && !flag && *psel > 0){
-        *psel = *psel - 1;  // *psel--; NAO FUNCIONA!
-        flag = 1;
-    }
-    if(c == 's' && !flag && *psel < 2){
-        *psel = *psel + 1;  // *psel++; NAO FUNCIONA!
-        flag = 1;
-    }
+    while(tecla != 13){
+        if(kbhit()){
+            tecla = getch();
+            flag = 0;
 
-    printMenu(*psel);
+            if(tecla == 'w' && !flag && *psel > 0){
+            *psel = *psel - 1;  // *psel--; NAO FUNCIONA!
+            flag = 1;
+            }
+            if(tecla == 's' && !flag && *psel < 2){
+                *psel = *psel + 1;  // *psel++; NAO FUNCIONA!
+                flag = 1;
+            }
+
+            printMenu(*psel);
+        }
+
+        Sleep(100);
+    }
 
     return;
 }
 
 
-int main() {
-    int sel = 1;
-    int* psel = &sel;
+// int main() {
+//     int sel = 1;
+//     int* psel = &sel;
 
-    //Limpa o CMD
-    system("cls");
-    printf(VERSION);
+//     //Limpa o CMD
+//     system("cls");
 
-    //Executa a primeira impressao
-    printMenu(0);
+//     //Executa a primeira impressao
+//     printMenu(1);
 
-    while(1){
-        selecao(psel);
-        Sleep(100);
-    }
+//     while(1){
+//         selecao(psel);
+//         Sleep(100);
+//     }
 
-
-    return 0;
-}
-
+//     return 0;
+// }

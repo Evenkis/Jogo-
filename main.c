@@ -1,39 +1,49 @@
-#include "mapa.h"
-#include "mover.h"
 #ifndef _DEFINES_
+
+//#include "mapa.h"
+#include "menu.h"
+#include "mover.h"
+
 #define LINHAS 35
-#define TAM 20
+#define TAM 50
 #define COLUNAS 415+1
 #define COLUNAS_TELA 105
-#endif
-
 #define INIMIGO_MAX 15
 
-int main()
-{
+#endif
+
+int main() {
     posica_t pos;
     posicao_t posi;
+    posicao_t inimigos[INIMIGO_MAX];    /// inimigos ficam na posicao
     int limite = 0;
     int vel = 1;
-    int i=0;
+    int i = 0;
     int morreu = 0;
     int n_inimigos = 0;
     int y_nave;
     int x_nave;
+    int sel = 1;
+    int *psel = &sel;
     char mapa[LINHAS][COLUNAS];
     char tecla;
+    char nome_arq[TAM];
 
     // Limpa a tela
     system("cls");
 
-    posicao_t inimigos[INIMIGO_MAX];    /// inimigos ficam na posicao
+    // Inicializa o menu (primeira impressao)
+    printMenu(sel);
 
-    posi = le_mapa(mapa, inimigos, &n_inimigos);  /// Passa a variavel do mapa, um vetor com tipo struct para botar a posicao dos inimigos
-    pos.colunaX = posi.colunaX;//nave               /// e um ponteiro para a funcao me deizer quantos inimigos tem
+    // Selecao das opcoes do menu
+    selecao(psel);
+
+    // Inicia um novo jogo
+    posi = le_mapa(mapa, inimigos, &n_inimigos, sel);  /// Passa a variavel do mapa, um vetor com tipo struct para botar a posicao dos inimigos
+    pos.colunaX = posi.colunaX; //nave                 /// um ponteiro para a funcao me deizer quantos inimigos tem, e qual opcao do menu foi selecionada
     pos.linhaY = posi.linhaY;
 
-    do
-    {
+    do {
         gotoxy(0,1); /// so para tirar um bugzinho esse gotoxy
 
         // Leitura do teclado
@@ -45,17 +55,16 @@ int main()
         gotoxy(0,0);
 
         ///coloquei isso para tentar entender o bug q da quanto passa por um certo ponto (o q tem a bandeira)
-        printf("linha = %d , coluna = %d , limite = %d ",pos.linhaY,pos.colunaX,limite);
-
+        printf("linha = %d , coluna = %d , limite = %d ", pos.linhaY, pos.colunaX, limite);
 
         pos.colunaX += vel;
         if(pos.colunaX >= COLUNAS )
         {
-            pos.colunaX = pos.colunaX - COLUNAS; //vou dizer q essas linhas não parecem fazer diferença alguma,mas
-                                                 //eu sinto q elas são necessarias
+            pos.colunaX = pos.colunaX - COLUNAS; //vou dizer q essas linhas nao parecem fazer diferenca alguma,
+                                                 //mas eu sinto q elas sao necessarias
         }
                             //se vc for tentar arrumar o bug q faz o mapa dar aquela voltada eu ja te adianto q
-                            // mudar algumas coisas nas linhas 61-63 não é o caminho, eu tentei de tudo
+                            // mudar algumas coisas nas linhas 61-63 nao eh o caminho, eu tentei de tudo
                             //deve ser alguma coisa relacionada com o limite
         limite += vel;
 
@@ -67,7 +76,7 @@ int main()
         x_nave = pos.colunaX;
         y_nave = pos.linhaY;
 
-        if( i%3 == 0) /// a cada 3 interações, isso será verdadeiro e os inimigos vão se mover(+ou- 180 ms)
+        if( i%3 == 0) /// a cada 3 interaï¿½ï¿½es, isso serï¿½ verdadeiro e os inimigos vï¿½o se mover(+ou- 180 ms)
             move_inimigos(mapa, inimigos, n_inimigos, y_nave, x_nave);
 
 
@@ -77,7 +86,7 @@ int main()
 
 
         if(morreu == 0) //uma optimizada de leve
-            detecta_colisao_com_inimigo(mapa,pos,vel,&morreu);
+            detecta_colisao_com_inimigo(mapa, pos, vel, &morreu);
 
         gera_nave(mapa,pos); //adicionei isso para ficar mais alto nivel
 

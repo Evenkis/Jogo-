@@ -1,3 +1,5 @@
+#ifndef _DEFINES_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
@@ -7,12 +9,12 @@
 #include <time.h>
 #include <sys/time.h>
 
-#ifndef _DEFINES_
 #define LINHAS 35
-#define TAM 20
+#define TAM 50
 #define COLUNAS 415+1
 #define COLUNAS_TELA 105
 #define TELA_MAX 3710+1
+
 #endif
 
 
@@ -22,8 +24,7 @@ typedef struct
 } posicao_t;
 
 // Funcao gotoxy
-void gotoxy(int x, int y)
-{
+void gotoxy(int x, int y) {
     COORD coord;
     coord.X = x;
     coord.Y = y;
@@ -31,16 +32,26 @@ void gotoxy(int x, int y)
 }
 
 // Funcao que le o mapa e detecta a nave e os inimigos
-posicao_t le_mapa(char mapa[][COLUNAS],posicao_t inimigos[], int *ini)
+posicao_t le_mapa(char mapa[][COLUNAS], posicao_t inimigos[], int *ini, int sel)
 {
     char nome_arq[TAM];
     int i, j;
 
-    // Pega o nome do arquivo do mapa a ser aberto
-    /// Vai ser alterado no futuro provavelmente...
-    printf("Informe o arquivo mapa que deseja ler: ");
-    fgets(nome_arq, TAM, stdin);    /// recebe o nome do arquivo
-    nome_arq[strlen(nome_arq) - 1] = '\0';
+    // Se 'Novo Jogo' for selecionado, le o nome do arquivo mapa
+    if(sel == 0){
+        // Pega o nome do arquivo do mapa a ser aberto
+
+        system("cls");  // limpa cmd
+
+        gotoxy(20,14);
+        printf("Informe o arquivo mapa que deseja ler: ");
+        fgets(nome_arq, TAM, stdin);    /// recebe o nome do arquivo
+        nome_arq[strlen(nome_arq) - 1] = '\0';
+    }
+    // Se 'Continuar' for selecionado, le o arquivo save.txt
+    else{
+        strcpy(nome_arq, "save.txt");
+    }
 
     posicao_t nave; /// detecta e retorna a posicao da nave em uma struct
 
