@@ -25,6 +25,7 @@ int main() {
     int x_nave;
     int sel = 1;
     int *psel = &sel;
+    int pontos = 0;
     char mapa[LINHAS][COLUNAS];
     char tecla;
     char nome_arq[TAM];
@@ -107,6 +108,7 @@ int main() {
     }
     while(!morreu);
 
-    printf("MORREU MORREU");
+    game_over(pontos);
+
     return 0;
 }

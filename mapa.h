@@ -190,5 +190,25 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
                     inimigos[i].colunaX = 415;
             }
         }
-
 }
+
+void game_over(int pontos){
+    // Limpa a tela
+    system("cls");
+
+    // Imprime "Game Over" no meio da tela
+    gotoxy(47,18);
+    printf("GAME OVER!");
+
+    // Imprime a pontuacao
+    gotoxy(43, 20);
+    printf("Sua pontuacao: %d", pontos);
+
+    // So pra deixar bonito
+    gotoxy(0,36);
+    printf(" ");
+
+    return;
+}
+
+
