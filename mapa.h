@@ -49,7 +49,7 @@ posicao_t le_mapa(char mapa[][COLUNAS], posicao_t inimigos[], int *ini, int sel)
         nome_arq[strlen(nome_arq) - 1] = '\0';
     }
     // Se 'Continuar' for selecionado, le o arquivo save.txt
-    else{
+    else if(sel == 1){
         strcpy(nome_arq, "save.txt");
     }
 

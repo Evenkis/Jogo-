@@ -38,6 +38,16 @@ int main() {
     // Selecao das opcoes do menu
     selecao(psel);
 
+    // 'Sair' do jogo
+    if(sel == 2){
+        // Limpa a tela
+        system("cls");
+
+        gotoxy(1,1);
+        printf("Thank you for playing!\n");
+        return 0;
+    }
+
     // Inicia um novo jogo
     posi = le_mapa(mapa, inimigos, &n_inimigos, sel);  /// Passa a variavel do mapa, um vetor com tipo struct para botar a posicao dos inimigos
     pos.colunaX = posi.colunaX; //nave                 /// um ponteiro para a funcao me deizer quantos inimigos tem, e qual opcao do menu foi selecionada
@@ -47,8 +57,7 @@ int main() {
         gotoxy(0,1); /// so para tirar um bugzinho esse gotoxy
 
         // Leitura do teclado
-        if(kbhit())
-        {
+        if(kbhit()) {
             tecla = getch();
             le_movimento(tecla, &(pos), &vel);
         }
