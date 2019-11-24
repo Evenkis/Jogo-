@@ -133,10 +133,10 @@ void imprime_tela(char mapa[][COLUNAS],int lim)
 
 int ve_se_inimigo_vai_bater_parede( posicao_t inimigo,char mapa[][COLUNAS],int subiu_desceu )
 {
-    //funçaõ bem simples que só ve se o proximo movimento vai ter parede, pq se tiver ele não se move
+    //funï¿½aï¿½ bem simples que sï¿½ ve se o proximo movimento vai ter parede, pq se tiver ele nï¿½o se move
     if(subiu_desceu == 1)
     {
-        if(   (mapa[inimigo.linhaY-2][inimigo.colunaX])  == 'C') //se tiver parede não
+        if(   (mapa[inimigo.linhaY-2][inimigo.colunaX])  == 'C') //se tiver parede nï¿½o
             return 0;
         else
             return 1;
@@ -155,7 +155,7 @@ void limpa_onde_o_inimigo_estava(char mapa[][COLUNAS],posicao_t inimigo)
 {
     mapa[inimigo.linhaY][inimigo.colunaX+1] = ' ';
     mapa[inimigo.linhaY-1][inimigo.colunaX+1] = ' ';
-    mapa[inimigo.linhaY-1][inimigo.colunaX] = ' '; //aquilo q vc tinha comentado de fazer função para a parte de movimentar inimigo
+    mapa[inimigo.linhaY-1][inimigo.colunaX] = ' '; //aquilo q vc tinha comentado de fazer funï¿½ï¿½o para a parte de movimentar inimigo
     mapa[inimigo.linhaY][inimigo.colunaX] = ' ';
 }
 
@@ -164,26 +164,25 @@ void coloca_inimigo_no_lugar_novo(char mapa[][COLUNAS],posicao_t inimigo)
     mapa[inimigo.linhaY][inimigo.colunaX+1] = 'X';
     mapa[inimigo.linhaY-1][inimigo.colunaX+1] = 'X';
     mapa[inimigo.linhaY-1][inimigo.colunaX] = 'X';
-    mapa[inimigo.linhaY][inimigo.colunaX] = 'X'; //aquilo q vc tinha comentado de fazer função para a parte de movimentar inimigo
+    mapa[inimigo.linhaY][inimigo.colunaX] = 'X'; //aquilo q vc tinha comentado de fazer funï¿½ï¿½o para a parte de movimentar inimigo
 }
-
 
 // Funcao que move os inimigos
 void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int y_nave,int x_nave)
 {
     int i = 0;
     int n_aleatorio;
-//    int subiu,desceu;
+    //    int subiu,desceu;
     srand(time(NULL));
 
-        /* Essa é a função mais complicada no programa, provavelmente, ela tem varias verificações e toma toda aparte de movimentar
-         e arrumar o local que o inimigo foi, ela em um if bem externo que verifica se um inimigo deve andar, ele não deve andar se
-        tiver sido acertado. a parte do '@' é para tenatr corrigir um bug e o espaço em branco é para continuar não imprimindo ele*/
+        /* Essa ï¿½ a funï¿½ï¿½o mais complicada no programa, provavelmente, ela tem varias verificaï¿½ï¿½es e toma toda aparte de movimentar
+         e arrumar o local que o inimigo foi, ela em um if bem externo que verifica se um inimigo deve andar, ele nï¿½o deve andar se
+        tiver sido acertado. a parte do '@' ï¿½ para tenatr corrigir um bug e o espaï¿½o em branco ï¿½ para continuar nï¿½o imprimindo ele*/
 
     for(i = 0; i<n_inimigos; i++)
     {
-//        subiu = 0;
-//        desceu = 0;
+    //        subiu = 0;
+    //        desceu = 0;
         if( (mapa[inimigos[i].linhaY][inimigos[i].colunaX] != '*') && (mapa[inimigos[i].linhaY][inimigos[i].colunaX] != ' ') )
             if((mapa[inimigos[i].linhaY][inimigos[i].colunaX] != '@'))
         {
@@ -205,7 +204,7 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
 
 
 
-//                    subiu = 1;
+    //                    subiu = 1;
                     }            //bota na nova
 
 
@@ -222,7 +221,7 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
 
                         coloca_inimigo_no_lugar_novo(mapa,inimigos[i]);
 
-//                    desceu = 1;
+    //                    desceu = 1;
 
                     }
                 }
@@ -244,7 +243,7 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
 
                             coloca_inimigo_no_lugar_novo(mapa,inimigos[i]);
 
-//                        subiu = 1;
+    //                        subiu = 1;
                         }
                     }
                 }
@@ -260,7 +259,7 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
 
                             coloca_inimigo_no_lugar_novo(mapa,inimigos[i]);
 
-//                        desceu = 1;
+    //                        desceu = 1;
                         }
                     }
                 }
@@ -279,7 +278,7 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
                     coloca_inimigo_no_lugar_novo(mapa,inimigos[i]);
                 }
             }
-            if(inimigos[i].colunaX <= 1)     // para quando chegar no começo da matriz ir pro fim
+            if(inimigos[i].colunaX <= 1)     // para quando chegar no comeï¿½o da matriz ir pro fim
                 inimigos[i].colunaX = 415 - inimigos[i].colunaX;
         }
 
@@ -310,7 +309,7 @@ void apaga_inimigos_acertados(char mapa[][COLUNAS], posicao_t inimigos[],int n_i
 {
     int i;
     for(i=0; i<n_inimigos; i++)
-        if( (mapa[inimigos[i].linhaY][inimigos[i].colunaX]) ==  '*' ) //a parte de verificação de acerto comentada na função
+        if( (mapa[inimigos[i].linhaY][inimigos[i].colunaX]) ==  '*' ) //a parte de verificacao de acerto comentada na funcao
         {                                                             // "ve_se_tiro_bateu_inimigo"
             mapa[inimigos[i].linhaY][inimigos[i].colunaX] = ' ';
             mapa[inimigos[i].linhaY-1][inimigos[i].colunaX] = ' ';
@@ -318,5 +317,44 @@ void apaga_inimigos_acertados(char mapa[][COLUNAS], posicao_t inimigos[],int n_i
             mapa[inimigos[i].linhaY-1][inimigos[i].colunaX+1] = ' ';
 
         }
+}
 
+// Funcao que salva o jogo no arquivo save.txt (Soh pode ter um save por vez. Salvar novamente sobrescreve o anterior)
+void salvarJogo(char mapa[][COLUNAS], posicao_t pos, posicao_t inimigos[], int n_inimigos){
+    int i, j, k;
+
+    // Abertura do arquivo como escrita (overwrite)
+    FILE *arq = NULL;
+    arq = fopen("save.txt", "w");
+
+    // Navega pelo mapa
+    for(i = 0; i < LINHAS; i++){
+        for(j = 0; j < COLUNAS; j++){
+            // Copia o mapa para o arquivo (char por char)
+            fputc(mapa[i][j], arq);
+
+            // Verifica se a coordenada atual eh a nave
+            if(i == pos.colunaX && j == pos.linhaY){
+                fputc('@', arq);
+            } 
+            else{
+                // Verifica se existe algum inimigo na posicao atual
+                for(k = 0; k < n_inimigos; k++){
+                    if(i == (inimigos[k]).colunaX && j == (inimigos[k]).linhaY){
+                        fputc('X', arq);
+                    }
+                }
+            }
+        }
+    }
+
+    // Fecha o arquivo
+    fclose(arq);
+
+    // Imprime "Jogo Salvo" na tela
+    gotoxy(46, 17);
+    printf("Jogo Salvo!");
+    Sleep(2000);
+
+    return;
 }
