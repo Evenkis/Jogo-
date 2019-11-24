@@ -16,7 +16,7 @@ void le_movimento(char tecla, posica_t *p, int *vel,int *tiro)        //fiz uma 
 
     else if(tecla == 'd')
     {
-        if((*vel) <= 4) //só para não ser mais rapida q o tiro
+        if((*vel) <= 4) //sï¿½ para nï¿½o ser mais rapida q o tiro
             (*vel)++; //aqui a parte mais importante.
     }
 
@@ -108,14 +108,14 @@ void gera_tiro(char mapa[][COLUNAS],posicao_t nave,posicao_t *tiro )
 {
     tiro->linhaY = nave.linhaY; //usei o "->" e o "*" para testar, mais como estudo para prova
     (*tiro).colunaX = nave.colunaX + 4;
-    mapa[tiro->linhaY][tiro->colunaX] = '-'; //só coloca um tiro no bico da nave
+    mapa[tiro->linhaY][tiro->colunaX] = '-'; //sï¿½ coloca um tiro no bico da nave
 
 }
 
 void faz_tiros_andarem(char mapa[][COLUNAS],posicao_t vet_tiros[],int n_tiros)
 {
     int i;
-    for(i=0; i<n_tiros; i++) //para todos os tiros já dados, se não houver um espaço (significando q ele bateu) ou um *
+    for(i=0; i<n_tiros; i++) //para todos os tiros jï¿½ dados, se nï¿½o houver um espaï¿½o (significando q ele bateu) ou um *
     {                        // que tb indica q ele morreu) o tiro anda com vel_tiro.
         if( (mapa[vet_tiros[i].linhaY][vet_tiros[i].colunaX] != ' ') && (mapa[vet_tiros[i].linhaY][vet_tiros[i].colunaX] != '*'))
             if( (mapa[vet_tiros[i].linhaY-1][vet_tiros[i].colunaX] != '*') )
@@ -129,7 +129,7 @@ void faz_tiros_andarem(char mapa[][COLUNAS],posicao_t vet_tiros[],int n_tiros)
                 }
 
                 vet_tiros[i].colunaX = vet_tiros[i].colunaX + VEL_TIRO;
-                if(vet_tiros[i].colunaX >= 410) //para sumir se estiver lá no final
+                if(vet_tiros[i].colunaX >= 410) //para sumir se estiver lï¿½ no final
                 {
                     mapa[vet_tiros[i].linhaY][vet_tiros[i].colunaX] = ' ';
                     mapa[vet_tiros[i].linhaY][vet_tiros[i].colunaX-1] = ' ';
@@ -149,7 +149,7 @@ void ve_se_tiro_bateu_inimigo(char mapa[][COLUNAS],posicao_t inimigos[],int n_in
 {
     int i,k,l;
     for(i=0; i<n_inimigos; i++)
-        for(k=0; k<2; k++)             ///ve se todas as casas dos inimigos não foram atigingidas
+        for(k=0; k<2; k++)             ///ve se todas as casas dos inimigos nï¿½o foram atigingidas
             for(l=0; l<2; l++)
                 if( mapa[inimigos[i].linhaY - l][inimigos[i].colunaX + k] == '-')
                 {
@@ -157,7 +157,7 @@ void ve_se_tiro_bateu_inimigo(char mapa[][COLUNAS],posicao_t inimigos[],int n_in
                     mapa[inimigos[i].linhaY][inimigos[i].colunaX] = '*';
                     mapa[inimigos[i].linhaY][inimigos[i].colunaX+1] = '*';  //coloca o * no inimigo por tres motivos
                     mapa[inimigos[i].linhaY-1][inimigos[i].colunaX+1] = '*';//1) parece q explodiu
-                    mapa[inimigos[i].linhaY-1][inimigos[i].colunaX] = '*';// 2) é um sinal q ele foi acertado para a função q a
+                    mapa[inimigos[i].linhaY-1][inimigos[i].colunaX] = '*';// 2) ï¿½ um sinal q ele foi acertado para a funï¿½ï¿½o q a
                                                                         // apaga ele
                 }                                                       // 3) pode ser uma maneira de add os pontos
 
