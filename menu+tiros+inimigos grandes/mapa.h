@@ -291,16 +291,25 @@ void game_over(int pontos)
     system("cls");
 
     // Imprime "Game Over" no meio da tela
-    gotoxy(47,18);
+    gotoxy(47,14);
     printf("GAME OVER!");
 
     // Imprime a pontuacao
-    gotoxy(43, 20);
+    gotoxy(43, 16);
     printf("Sua pontuacao: %d", pontos);
+
+    gotoxy(35, 30);
+    printf("Pressione qualquer tecla para sair.");
 
     // So pra deixar bonito
     gotoxy(0,36);
     printf(" ");
+
+    Sleep(1000); // Pra evitar problemas 
+
+    do{
+        // Aguardar um hit no teclado para terminar o jogo
+    } while(!kbhit());
 
     return;
 }
