@@ -68,6 +68,9 @@ int main()
         {
             tecla = getch();
             le_movimento(tecla, &(pos), &vel,&tiro);
+            if(tecla == 'g'){
+                salvarJogo(mapa, posi, inimigos, n_inimigos);
+            }
         }
         gotoxy(0,0);
 
@@ -98,10 +101,12 @@ int main()
         if((i%3 == 0)) /// a cada 3 interacoes, isso sera verdadeiro e os inimigos vao se mover
             move_inimigos(mapa, inimigos, n_inimigos, y_nave, x_nave);
 
-        if(acertou == 1)
+        if(acertou == 1){
             apaga_inimigos_acertados(mapa,inimigos,n_inimigos);
+            pontos += 100;   // Ganha 100 pontos se acertou inimigo
+        }
 
-        acertou = 0; //acertou é zerado dps de ser usado em apaga_inimigos
+        acertou = 0; //acertou eh zerado dps de ser usado em apaga_inimigos
 
         detecta_colisao(mapa, pos, vel, &morreu);
         /// passa o mapa, a struct com onde ele esta, a velocidade tem q ser usada para ver se
