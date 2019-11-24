@@ -48,7 +48,7 @@ void limpa_rastro(char tecla, posica_t pos, int vel, char mapa[][COLUNAS])
     if(tecla == 'w')
     {
         for(i = 0; i < 4; i++)
-            mapa[pos.linhaY +1][pos.colunaX +i -vel] = ' ';
+            mapa[pos.linhaY +1][pos.colunaX +i -vel]=' ';
     }
 
 }
@@ -80,7 +80,7 @@ void detecta_colisao_com_inimigo(char mapa[][COLUNAS],posica_t pos, int vel, int
         *morreu = -1;
     }
 
-    for(i = 0; i < 4; i++)                  ///mesma coisa q colisao com mapa
+    for(i = 0; i < 4; i++)                  ///mesma coisa q colisão com mapa
     {
         if ((mapa[pos.linhaY][pos.colunaX +vel +i] == 'X'))
         {
