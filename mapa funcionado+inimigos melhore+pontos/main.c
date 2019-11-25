@@ -15,24 +15,28 @@
 
 int main()
 {
-    posica_t pos;
-    posicao_t vet_tiros[MAX_TIROS] = {0};
-    posicao_t posi,posi_nave;
+    posica_t pos; //onde a posicao na nave fica realmente
+    posicao_t vet_tiros[MAX_TIROS] = {0}; //vetor de tiros nave
+    posicao_t posi,posi_nave; //posi && posi_nave p/ gambiarra
     posicao_t inimigos[INIMIGO_MAX];    /// inimigos ficam na posicao
-    int limite = 0;
+
+    tiros_inimigos_t tiros[INIMIGO_MAX] = {0}; //vetor posição dos tiros, 1 tiro por inimigo
+
+    int limite = 0; //pro mapa
     int vel = 1;
-    int i = 0;
-    int tiro=0,contador_de_tiro=0,quantos_tiros=0,acertou=0;
+    int vidas = 3;
+    int i = 0; //pros fors
+    int tiro=0,contador_de_tiro=0,quantos_tiros=0,acertou=0; //coisa pro tiro funcionar
     int morreu = 0;
     int n_inimigos = 0;
-    int y_nave;
-    int x_nave;
-    int x_nave_zero;
+    int y_nave;//gambiarra.org
+    int x_nave;//gambiarra.org
+    int x_nave_zero;//para ajustar o limite quando a nave chega no final
     int sel = 1;
     int *psel = &sel;
     int pontos = 0;
     char mapa[LINHAS][COLUNAS];
-    char tecla;
+    char tecla; //o comando dado
     char nome_arq[TAM];
 
     // Limpa a tela
@@ -62,6 +66,8 @@ int main()
     x_nave_zero = pos.colunaX;
     do
     {
+        tecla = 'q';
+        morreu =0;
         gotoxy(0,1); /// so para tirar um bugzinho esse gotoxy
 
         // Leitura do teclado
@@ -74,9 +80,9 @@ int main()
             }
         }
         gotoxy(0,0);
-
-        ///coloquei isso para tentar entender o bug q da quanto passa por um certo ponto (o q tem a bandeira)
-        printf("nave_linha = %d , nave_coluna = %d , limite = %d ", pos.linhaY, pos.colunaX, limite);
+        printf("VIDAS:  %d  PONTOS: %d",vidas,pontos);
+//        ///coloquei isso para tentar entender o bug q da quanto passa por um certo ponto (o q tem a bandeira)
+//        printf("nave_linha = %d , nave_coluna = %d , limite = %d ", pos.linhaY, pos.colunaX, limite);
 
         pos.colunaX += vel;
 
@@ -155,17 +161,28 @@ int main()
 
         arruma_bug_de_inimigo_nao_sumindo(mapa,inimigos,n_inimigos);
 
-//        conta_pontos(n_inimigos,mapa,&pontos);
+//        inimigos_atiram(mapa,tiros,inimigos,n_inimigos);  //WIP
+
+        conta_pontos(n_inimigos,mapa,&pontos);
 
         // Imprime a tela
         imprime_tela(mapa, limite);
         i++;
         tiro=0;
+        if(morreu == -1)
+        {
+            Beep(900,900);
+//            printf("\a\a");
+            Sleep(2000);
+            vidas--;
+            coloca_a_nave_no_meio_e_arruma_mapa(mapa,pos,&(pos).linhaY);
+        }
+
     }
-    while(!morreu);
+    while(vidas !=  0 && (pontos != (n_inimigos * 10)));
 
     conta_pontos(n_inimigos,mapa,&pontos);
-    game_over(pontos);
+    game_over(pontos,n_inimigos);
 
     return 0;
 }

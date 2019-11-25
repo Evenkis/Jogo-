@@ -142,10 +142,12 @@ void faz_tiros_andarem(char mapa[][COLUNAS],posicao_t vet_tiros[],int n_tiros)
                     if(vet_tiros[i].colunaX >= COLUNAS)
                         vet_tiros[i].colunaX = vet_tiros[i].colunaX % COLUNAS;
 
-                    if(vet_tiros[i].colunaX >= 410) //para sumir se estiver la no final
+                    if(vet_tiros[i].colunaX >= 310) //para sumir se estiver la no final
                     {
-                        mapa[vet_tiros[i].linhaY][vet_tiros[i].colunaX] = ' ';
-                        mapa[vet_tiros[i].linhaY][vet_tiros[i].colunaX-1] = ' ';
+                        vet_tiros[i].colunaX = 0;
+                        mapa[vet_tiros[i].linhaY][vet_tiros[i].colunaX] = '-';
+                        mapa[vet_tiros[i].linhaY][vet_tiros[i].colunaX-1] = '-';
+
                     }
                     else        //limpa e faz o tiro andar
                     {
@@ -177,5 +179,33 @@ void ve_se_tiro_bateu_inimigo(char mapa[][COLUNAS],posicao_t inimigos[],int n_in
 
 }
 
+void coloca_a_nave_no_meio_e_arruma_mapa(char mapa[][COLUNAS],posica_t pos,int *linha_da_nave)
+{
+    //a ideia eh verificar onde bateu no mapa e reconstruir o mapa
+    int i;
 
+    for(i=0;i<4;i++)
+        {
+        if(mapa[pos.linhaY][(pos.colunaX)+i] == 'C')
+            mapa[pos.linhaY][(pos.colunaX)+i] = 'C';
+        else
+            mapa[pos.linhaY][(pos.colunaX)+i] = ' ';
+
+        mapa[(pos.linhaY)-1][(pos.colunaX)] = ' ';
+        }
+
+    if(mapa[pos.linhaY-1][pos.colunaX] == 'C')
+        {
+        mapa[(pos.linhaY)-1][(pos.colunaX)+1] = 'C';
+        mapa[(pos.linhaY)-1][pos.colunaX-1] = 'C';
+        mapa[(pos.linhaY)-1][(pos.colunaX)] = 'C';
+        }
+
+    *linha_da_nave = 23; ///bota a nvae no meio do mapa novamente
+
+
+
+
+
+}
 

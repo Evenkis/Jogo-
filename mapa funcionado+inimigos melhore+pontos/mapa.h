@@ -23,6 +23,14 @@ typedef struct
     int linhaY, colunaX;
 } posicao_t;
 
+typedef struct
+{
+  int colunaX_tiro;
+  int linhaY_tiro;
+  int quanto_andou;
+
+}tiros_inimigos_t;
+
 // Funcao gotoxy
 void gotoxy(int x, int y)
 {
@@ -182,9 +190,9 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
     //    int subiu,desceu;
     srand(time(NULL));
 
-    /* Essa � a fun��o mais complicada no programa, provavelmente, ela tem varias verifica��es e toma toda aparte de movimentar
-     e arrumar o local que o inimigo foi, ela em um if bem externo que verifica se um inimigo deve andar, ele n�o deve andar se
-    tiver sido acertado. a parte do '@' � para tenatr corrigir um bug e o espa�o em branco � para continuar n�o imprimindo ele*/
+    /* Essa e a fun��o mais complicada no programa, provavelmente, ela tem varias verifica��es e toma toda aparte de movimentar
+     e arrumar o local que o inimigo foi, ela em um if bem externo que verifica se um inimigo deve andar, ele naoo deve andar se
+    tiver sido acertado. a parte do '@' wh para tenatr corrigir um bug e o espa�o em branco ' ' para continuar naoo imprimindo ele*/
 
     for(i = 0; i<n_inimigos; i++)
     {
@@ -274,7 +282,7 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
 
 
                 /// so anda para frente se estiver perto de 120 colunas
-                if( (fabs(x_nave - inimigos[i].colunaX)) < 120)
+//                if( (fabs(x_nave - inimigos[i].colunaX)) < 120)
                 {
                     /// faz todos os ininmigos andarem para frente
                     if(ve_se_inimigo_vai_bater_parede(inimigos[i],mapa,3) == 1)
@@ -286,30 +294,44 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
                         coloca_inimigo_no_lugar_novo(mapa,inimigos[i]);
                     }
                 }
-                if(inimigos[i].colunaX <= 1)
+                if(inimigos[i].colunaX == 0)
                 {
                     mapa[inimigos[i].linhaY-1][inimigos[i].colunaX] = ' ' ;
+                    mapa[inimigos[i].linhaY-1][inimigos[i].colunaX+1] = ' ' ;
                     mapa[inimigos[i].linhaY][inimigos[i].colunaX] = ' ' ;
+                    mapa[inimigos[i].linhaY][inimigos[i].colunaX+1] = ' ' ;
+
                     // para quando chegar no come�o da matriz ir pro fim
-                    inimigos[i].colunaX = 416 - inimigos[i].colunaX;
+
+                    inimigos[i].colunaX = 310;
+
+                    mapa[inimigos[i].linhaY-1][inimigos[i].colunaX] = 'X' ;
+                    mapa[inimigos[i].linhaY-1][inimigos[i].colunaX+1] = 'X' ;
+                    mapa[inimigos[i].linhaY][inimigos[i].colunaX] = 'X' ;
+                    mapa[inimigos[i].linhaY][inimigos[i].colunaX+1] = 'X' ;
                 }
             }
 
     }
 }
 
-void game_over(int pontos)
+void game_over(int pontos,int n_inimigos)
 {
     // Limpa a tela
     system("cls");
 
     // Imprime "Game Over" no meio da tela
     gotoxy(47,14);
-    printf("GAME OVER!");
+    if(pontos == n_inimigos*10)
+        printf("YOU WIN");
+    else
+        printf("GAME OVER!");
 
     // Imprime a pontuacao
     gotoxy(43, 16);
     printf("Sua pontuacao: %d", pontos);
+
+    Sleep(1000);
 
     gotoxy(35, 30);
     printf("Pressione qualquer tecla para sair.");
@@ -429,6 +451,7 @@ void arruma_bug_de_inimigo_nao_sumindo(char mapa[][COLUNAS],posicao_t inimigos[]
 void conta_pontos(int n_inimigos, char mapa[][COLUNAS], int *pontos)
 {
     int i,j,contador=0;
+    *pontos = 0;
 //    int verificar=0;
 
     for(i=0; i<LINHAS; i++)
@@ -440,7 +463,7 @@ void conta_pontos(int n_inimigos, char mapa[][COLUNAS], int *pontos)
     contador=contador/4;
     *pontos = n_inimigos - contador;
     *pontos = (*pontos)*10;
-
-
 }
+
+//void inimigos_atiram(char mapa[][COLUNAS],tiros_inimigos_t tiros[],posi,n_inimigos);
 
