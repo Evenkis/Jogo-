@@ -69,23 +69,23 @@ int main()
             tecla = getch();
             le_movimento(tecla, &(pos), &vel,&tiro);
             if(tecla == 'g'){
-                salvarJogo(mapa, posi, inimigos, n_inimigos);
+                salvarJogo(mapa);
             }
         }
         gotoxy(0,0);
 
-        ///coloquei isso para tentar entender o bug q da quanto passa por um certo ponto (o q tem a bandeira)
+        /// coloquei isso para tentar entender o bug q da quanto passa por um certo ponto (o q tem a bandeira)
         printf("linha = %d , coluna = %d , limite = %d ", pos.linhaY, pos.colunaX, limite);
 
         pos.colunaX += vel;
         if(pos.colunaX >= COLUNAS )
         {
-            pos.colunaX = pos.colunaX - COLUNAS; //vou dizer q essas linhas nao parecem fazer diferenca alguma,
-            //mas eu sinto q elas sao necessarias
+            pos.colunaX = pos.colunaX - COLUNAS; // vou dizer q essas linhas nao parecem fazer diferenca alguma,
+            // mas eu sinto q elas sao necessarias
         }
-        //se vc for tentar arrumar o bug q faz o mapa dar aquela voltada eu ja te adianto q
+        // se vc for tentar arrumar o bug q faz o mapa dar aquela voltada eu ja te adianto q
         // mudar algumas coisas nas linhas 61-63 nao eh o caminho, eu tentei de tudo
-        //deve ser alguma coisa relacionada com o limite
+        // deve ser alguma coisa relacionada com o limite
         limite += vel;
 
         if (limite >= COLUNAS ) //para arrumar o limite se der varias voltas
@@ -95,8 +95,6 @@ int main()
 
         x_nave = pos.colunaX;
         y_nave = pos.linhaY;
-
-
 
         if((i%3 == 0)) /// a cada 3 interacoes, isso sera verdadeiro e os inimigos vao se mover
             move_inimigos(mapa, inimigos, n_inimigos, y_nave, x_nave);

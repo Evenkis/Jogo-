@@ -103,7 +103,7 @@ void imprime_tela(char mapa[][COLUNAS],int lim)
     // Navega pelo mapa (ja inclui velocidade e limite e sla mais o que)
     for(i = 0; i < LINHAS; i++)
     {
-        for(j = lim; j < (COLUNAS_TELA + lim); j++)
+        for(j = lim, k = lim; j < (COLUNAS_TELA + lim); j++)
         {
             if( (j+COLUNAS_TELA) >= COLUNAS  )
             {
@@ -127,7 +127,7 @@ void imprime_tela(char mapa[][COLUNAS],int lim)
     // Finalmente printa o stringao na tela
     printf("%s", tela);
 
-    // Dorme um pouquinho :D
+    // Dorme um pouquinho
     Sleep(60);
 }
 
@@ -329,7 +329,7 @@ void apaga_inimigos_acertados(char mapa[][COLUNAS], posicao_t inimigos[],int n_i
 }
 
 // Funcao que salva o jogo no arquivo save.txt (Soh pode ter um save por vez. Salvar novamente sobrescreve o anterior)
-void salvarJogo(char mapa[][COLUNAS], posicao_t pos, posicao_t inimigos[], int n_inimigos){
+void salvarJogo(char mapa[][COLUNAS]){
     int i, j, k;
 
     // Abertura do arquivo como escrita (overwrite)
@@ -339,20 +339,32 @@ void salvarJogo(char mapa[][COLUNAS], posicao_t pos, posicao_t inimigos[], int n
     // Navega pelo mapa
     for(i = 0; i < LINHAS; i++){
         for(j = 0; j < COLUNAS; j++){
-            // Copia o mapa para o arquivo (char por char)
-            fputc(mapa[i][j], arq);
+            // Copia o mapa para o arquivo (char por char) se não for nave nem inimigo
+            if(mapa[i][j] != '@' && mapa[i][j] != 'X' && mapa[i][j] != '-'){
+                fputc(mapa[i][j], arq);
+            }
 
-            // Verifica se a coordenada atual eh a nave
-            if(i == pos.colunaX && j == pos.linhaY){
+            // Se encontrar a nave (um @ acima e um na frente), bota somente um @ no arquivo
+            if(mapa[i][j] == '@' && mapa[i-1][j] == '@' && mapa[i][j+1] == '@'){
                 fputc('@', arq);
-            } 
-            else{
-                // Verifica se existe algum inimigo na posicao atual
-                for(k = 0; k < n_inimigos; k++){
-                    if(i == (inimigos[k]).colunaX && j == (inimigos[k]).linhaY){
-                        fputc('X', arq);
-                    }
-                }
+            }
+            // Nas outras posicoes da nave, bota só um espaço
+            else if(mapa[i][j] == '@'){
+                fputc(' ', arq);
+            }
+
+            // Se encontrar o inimigo (um X acima e um na frente), bota somente um X no arquivo
+            if(mapa[i][j] == 'X' && mapa[i-1][j] == 'X' && mapa[i][j+1] == 'X'){
+                fputc('X', arq);
+            }
+            // Nas outras posicoes do inimigo, bota só um espaço
+            else if(mapa[i][j] == 'X'){
+                fputc(' ', arq);
+            }
+
+            // Condicao para nao gravar o tiro no mapa
+            if(mapa[i][j] == '-'){
+                fputc(' ', arq);
             }
         }
     }

@@ -22,7 +22,7 @@ void le_movimento(char tecla, posica_t *p, int *vel,int *tiro)        //fiz uma 
 
     else if(tecla == 'a')
     {
-//        if ((*vel)>1)
+    // if ((*vel)>1)
         (*vel)--;
     }
     else if(tecla == ' ')
