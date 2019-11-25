@@ -183,6 +183,5 @@ int main()
 
     conta_pontos(n_inimigos,mapa,&pontos);
     game_over(pontos,n_inimigos);
-
     return 0;
 }

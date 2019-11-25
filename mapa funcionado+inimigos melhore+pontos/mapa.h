@@ -25,11 +25,11 @@ typedef struct
 
 typedef struct
 {
-  int colunaX_tiro;
-  int linhaY_tiro;
-  int quanto_andou;
+    int colunaX_tiro;
+    int linhaY_tiro;
+    int quanto_andou;
 
-}tiros_inimigos_t;
+} tiros_inimigos_t;
 
 // Funcao gotoxy
 void gotoxy(int x, int y)
@@ -314,6 +314,50 @@ void move_inimigos(char mapa[][COLUNAS],posicao_t inimigos[],int n_inimigos,int 
 
     }
 }
+void musica_vitoria()
+{
+    Beep(987,53);
+    Beep(987,53);
+    Beep(987,53);
+    Beep(987,428);
+    Beep(784,428);
+    Beep(880,428);
+    Beep(987,107);
+    Beep(880,107);
+    Beep(987,857);
+    Beep(740,428);
+    Beep(659,428);
+    Beep(740,428);
+    Beep(659,107);
+    Beep(880,428);
+    Beep(880,107);
+    Beep(830,428);
+    Beep(880,107);
+    Beep(830,428);
+    Beep(830,107);
+    Beep(740,428);
+    Beep(659,428);
+    Beep(622,428);
+    Beep(659,107);
+    Beep(554,1714);
+    Beep(740,428);
+    Beep(659,428);
+    Beep(740,428);
+    Beep(659,107);
+    Beep(880,428);
+    Beep(880,107);
+    Beep(830,428);
+    Beep(880,107);
+    Beep(830,428);
+    Beep(830,107);
+    Beep(740,428);
+    Beep(659,428);
+    Beep(740,428);
+    Beep(880,107);
+    Beep(987,1314);
+}
+
+
 
 void game_over(int pontos,int n_inimigos)
 {
@@ -323,7 +367,10 @@ void game_over(int pontos,int n_inimigos)
     // Imprime "Game Over" no meio da tela
     gotoxy(47,14);
     if(pontos == n_inimigos*10)
+    {
         printf("YOU WIN");
+        musica_vitoria();
+    }
     else
         printf("GAME OVER!");
 

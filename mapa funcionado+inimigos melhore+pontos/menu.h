@@ -80,6 +80,3 @@ void selecao(int* psel) {
 
     return;
 }
-
-
-
