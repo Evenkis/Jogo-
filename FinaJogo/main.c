@@ -1,18 +1,18 @@
 /* jogo inspirado no denfender, jogo do atari.
 WASD para movimentaco
 features:   -jogador do pode ter 3 tiros na tela ao mesmo tempo
-            -inimigos "mostram" que vão atirar antes de atirar"
-            -inimigos andam, se estiveram a uma certa distancia, na direção do jogador
+            -inimigos "mostram" que vï¿½o atirar antes de atirar"
+            -inimigos andam, se estiveram a uma certa distancia, na direï¿½ï¿½o do jogador
             -a velociade maxima do jogador eh uma menor que a dos seus tiros
             e a minima eh uma casa por interacao
             -inimigos podem se atigir
-            -os inimigos detectam paredes e não batem nelas
+            -os inimigos detectam paredes e nï¿½o batem nelas
             -os tiros dos inimigos eh mais lento que os do jogador
             -os tiros do jogador podem dar a volta no mapa
 
 */
 
-#ifndef _DEFINES_                           ///Nycolas Ramires e *_________*
+#ifndef _DEFINES_                           ///Nycolas Ramires e Eric Peracchi Pisoni
 
 //#include "mapa.h" //mapa.h esta em menu.h
 #include "menu.h"
@@ -34,7 +34,7 @@ int main()
     posicao_t posi,posi_nave; //posi && posi_nave p/ gambiarra
     posicao_t inimigos[INIMIGO_MAX];    /// inimigos ficam na posicao
 
-    tiros_inimigos_t tiros[INIMIGO_MAX] = {0}; //vetor posição dos tiros, 1 tiro por inimigo
+    tiros_inimigos_t tiros[INIMIGO_MAX] = {0}; //vetor posiï¿½ï¿½o dos tiros, 1 tiro por inimigo
 
     int limite = 0; //pro mapa
     int vel = 1;
@@ -77,10 +77,14 @@ int main()
     pos.colunaX = posi.colunaX; //nave                 /// um ponteiro para a funcao me deizer quantos inimigos tem, e qual opcao do menu foi selecionada
     pos.linhaY = posi.linhaY;
     x_nave_zero = pos.colunaX;
+
+    // Posiciona a nave 20 colunas a frente do comeco da tela
+    limite = pos.colunaX - 20;
+
     do
     {
         tecla = 'q';
-        morreu =0;
+        morreu = 0;
         gotoxy(0,1); /// so para tirar um bugzinho esse gotoxy
 
         // Leitura do teclado
@@ -90,11 +94,11 @@ int main()
             le_movimento(tecla, &(pos), &vel,&tiro);
             if(tecla == 'g')
             {
-                salvarJogo(mapa, posi, inimigos, n_inimigos);
+                salvarJogo(mapa);
             }
         }
         gotoxy(0,0);
-        printf("VIDAS:  %d  PONTOS: %d",vidas,pontos);
+        printf("VIDAS:  %d  PONTOS: %d", vidas, pontos);
 //        ///coloquei isso para tentar entender o bug q da quanto passa por um certo ponto (o q tem a bandeira)
 //        printf("nave_linha = %d , nave_coluna = %d , limite = %d ", pos.linhaY, pos.colunaX, limite);
 
@@ -104,7 +108,7 @@ int main()
         {
             pos.colunaX = (pos.colunaX + COLUNAS_TELA) % (COLUNAS-1);
             mapa[pos.linhaY][310] = ' ';
-            mapa[(pos.linhaY)- 1][310] = ' '; ///só uns numeros magicos para funcionar o mapa 100%
+            mapa[(pos.linhaY)- 1][310] = ' '; ///sï¿½ uns numeros magicos para funcionar o mapa 100%
             mapa[pos.linhaY][310-1] = ' ';
             mapa[(pos.linhaY)- 1][310-1] = ' ';
             mapa[pos.linhaY][310-2] = ' ';
@@ -118,7 +122,7 @@ int main()
 
         if (limite >= COLUNAS ) //para arrumar o limite se der varias voltas
         {
-            limite = pos.colunaX - x_nave_zero; ///só uns numeros magicos para funcionar o mapa 100%
+            limite = pos.colunaX - x_nave_zero; ///sï¿½ uns numeros magicos para funcionar o mapa 100%
 
         }
         x_nave = pos.colunaX;
@@ -184,7 +188,7 @@ int main()
             for(int j=0; j<n_inimigos; j++)
                 tiros_andam(mapa,&(tiros[j])); //dos inimigos
 
-            //só para resetar
+            //sï¿½ para resetar
         }
 
 
